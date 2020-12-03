@@ -1,0 +1,46 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %} Shows {% endblock %}
+{% block main_title %} Shows {% endblock %}
+{% block content %}
+<div class="card">
+<table>
+<thead>
+<tr>
+    <th>Title</th>
+    <th>Year</th>
+    <th>Runtime (min)</th>
+    <th>Rating</th>
+    <th>Genres</th>
+    <th>Trailer</th>
+    <th>Homepage</th>
+</tr>
+</thead>
+    <tbody>
+{% for show in shows_list %}
+    <tr>
+        <td> <a href="{{ url_for('display_show', show_id = show.get("id")) }}">{{show['title'] }}</a></td>
+        <td>{{ show['year'] }}</td>
+        <td>{{ show['runtime'] }}</td>
+        <td>{{ show['rating'] }}</td>
+        <td>{{ show['genres'] }}</td>
+        <td>
+            {% if show['trailer'] != 'No URL' %}
+                <a href="{{ show['trailer'] }}">trailer</a>
+            {% else %}
+                {{ show['trailer'] }}
+            {% endif %}
+        </td>
+        <td>
+            {% if show['homepage'] != 'No URL' %}
+                <a href="{{ show['homepage'] }}">homepage</a>
+            {% else %}
+                {{ show['homepage'] }}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}
