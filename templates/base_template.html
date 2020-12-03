@@ -28,7 +28,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
 
     <!-- page specific styling -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+{% block styling %}
+
+{% endblock %}
 </head>
 
 <body>
@@ -47,8 +49,17 @@
         <nav class="breadcrumb"> {% block breadcrumb %}{% endblock %}
         </nav>
         <h1 class="title text-center">{% block main_title %} Welcome page {% endblock %}</h1>
-    </section>
+
     {% block content %} {% endblock %}
+    </section>
+<footer>
+        Copyright, bla-bla
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
 </div>
 </body>
+
 </html>
