@@ -46,15 +46,23 @@
 </div>
     <div class="card">
         <div class="pagination">
-        «
+        {% if page != 1 %}
+            <a href="{{ url_for('most_rated', page=page_before) }}">«</a>
+        {% else %}
+            <a href="#">«</a>
+        {% endif %}
     {% for num in page_numbers %}
         {% if num == page %}
             <a href="#" class="active">{{ num }}</a>
         {% else %}
-            <a href="{{ url_for('most_rated', page=num )}}" class="pagination">{{ num }}</a>
+            <a href="{{ url_for('most_rated', page=num) }}" class="pagination">{{ num }}</a>
         {% endif %}
     {% endfor %}
-        »
+        {% if page != page_numbers[-1] %}
+            <a href="{{ url_for('most_rated', page=page_after) }}">»</a>
+        {% else %}
+            <a href="#">»</a>
+        {% endif %}
         </div>
     </div>
 {% endblock %}

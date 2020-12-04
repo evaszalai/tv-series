@@ -17,6 +17,8 @@ def index():
 def most_rated(page):
     shows_list = queries.most_rated(page)
     all_shows = queries.get_shows()
+    page_before = int(page) - 1
+    page_after = int(page) + 1
     page_numbers = []
     page_num = 0
     show_num = 0
@@ -25,7 +27,7 @@ def most_rated(page):
         if show_num % 15 == 1:
             page_num += 1
             page_numbers.append(page_num)
-    return render_template('most_rated.html', shows_list=shows_list, page_numbers=page_numbers, page=int(page))
+    return render_template('most_rated.html', shows_list=shows_list, page_numbers=page_numbers, page=int(page), page_before=page_before, page_after=page_after)
 
 
 @app.route('/show/<show_id>')
