@@ -44,4 +44,17 @@
     </tbody>
 </table>
 </div>
+    <div class="card">
+        <div class="pagination">
+        «
+    {% for num in page_numbers %}
+        {% if num == page %}
+            <a href="#" class="active">{{ num }}</a>
+        {% else %}
+            <a href="{{ url_for('most_rated', page=num )}}" class="pagination">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+        »
+        </div>
+    </div>
 {% endblock %}

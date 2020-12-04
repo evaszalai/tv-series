@@ -13,10 +13,19 @@ def index():
     return render_template('index.html', shows=shows)
 
 
-@app.route('/shows/most-rated')
-def most_rated():
-    shows_list = queries.most_rated()
-    return render_template('most_rated.html', shows_list=shows_list)
+@app.route('/shows/most-rated/<page>')
+def most_rated(page):
+    shows_list = queries.most_rated(page)
+    all_shows = queries.get_shows()
+    page_numbers = []
+    page_num = 0
+    show_num = 0
+    for show in all_shows:
+        show_num += 1
+        if show_num % 15 == 1:
+            page_num += 1
+            page_numbers.append(page_num)
+    return render_template('most_rated.html', shows_list=shows_list, page_numbers=page_numbers, page=int(page))
 
 
 @app.route('/show/<show_id>')
