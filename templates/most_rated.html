@@ -8,10 +8,11 @@
 <table>
 <thead>
 <tr>
-    <th>Title</th>
+    <th>
+        <a href="{{ url_for('most_rated', page=1, order_by='title', reverse=not reverse) }}"> Title </a></th>
     <th>Year</th>
     <th>Runtime (min)</th>
-    <th>Rating</th>
+    <th>Rating ⇩</th>
     <th>Genres</th>
     <th>Trailer</th>
     <th>Homepage</th>
@@ -47,7 +48,7 @@
     <div class="card">
         <div class="pagination">
         {% if page != 1 %}
-            <a href="{{ url_for('most_rated', page=page_before) }}">«</a>
+            <a href="{{ url_for('most_rated', page=page_before, order_by=order_by, reverse=reverse) }}">«</a>
         {% else %}
             <a href="#">«</a>
         {% endif %}
@@ -55,11 +56,11 @@
         {% if num == page %}
             <a href="#" class="active">{{ num }}</a>
         {% else %}
-            <a href="{{ url_for('most_rated', page=num) }}" class="pagination">{{ num }}</a>
+            <a href="{{ url_for('most_rated', page=num, order_by=order_by, reverse=reverse) }}" class="pagination">{{ num }}</a>
         {% endif %}
     {% endfor %}
         {% if page != page_numbers[-1] %}
-            <a href="{{ url_for('most_rated', page=page_after) }}">»</a>
+            <a href="{{ url_for('most_rated', page=page_after, order_by=order_by, reverse=reverse) }}">»</a>
         {% else %}
             <a href="#">»</a>
         {% endif %}
