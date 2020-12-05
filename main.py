@@ -36,14 +36,16 @@ def most_rated(page, order_by='rating', order='DESC'):
 def display_show(show_id):
     show = queries.get_show(show_id)
     if show['runtime'] % 60 == 0:
-        show['runtime'] = f"{show['runtime'] / 60}h"
+        show['runtime'] = f"{show['runtime'] // 60}h"
     elif show['runtime'] > 60:
-        show['runtime'] = f"{show['runtime'] / 60}h {show['runtime'] % 60}min"
+        show['runtime'] = f"{show['runtime'] // 60}h {show['runtime'] % 60}min"
     else:
         show['runtime'] = f"{show['runtime']}min"
     if show['trailer'] != 'No URL':
         show['trailer'] = convert_to_embed_url(show['trailer'])
-    return render_template('display_show.html', show=show)
+    actors = queries.get_top_actors(show_id)
+    seasons = queries.get_seasons(show_id)
+    return render_template('display_show.html', show=show, actors=actors, seasons=seasons)
 
 
 @app.route('/design')

@@ -35,13 +35,37 @@ def get_show(show_id):
     ROUND(rating, 1) AS rating,
     STRING_AGG(DISTINCT g.name, ', ') AS genres,
     overview,
-    STRING_AGG(DISTINCT a.name, ', ') AS actors,
     COALESCE(trailer, 'No URL') AS trailer
     FROM shows
     INNER JOIN show_genres sg on shows.id = sg.show_id
     INNER JOIN genres g on g.id = sg.genre_id
-    INNER JOIN show_characters sc on shows.id = sc.show_id
-    INNER JOIN actors a on a.id = sc.actor_id
     WHERE shows.id = %(show_id)s
     GROUP BY title, runtime, rating, overview, trailer""" % {'show_id': show_id}
     return data_manager.execute_select(query, fetchall=False)
+
+
+def get_top_actors(show_id):
+    query = """SELECT
+    actors.id, 
+    actors.name AS actor, 
+    COUNT(DISTINCT character_name) AS roles
+    FROM actors
+    FULL JOIN show_characters sc on actors.id = sc.actor_id
+    LEFT JOIN shows s on sc.show_id = s.id
+    WHERE s.id = %(show_id)s
+    GROUP BY actors.id, actors.name
+    ORDER BY roles
+    LIMIT 3""" % {'show_id': show_id}
+    return data_manager.execute_select(query)
+
+
+def get_seasons(show_id):
+    query = """SELECT
+    season_number,
+    title, 
+    overview
+    FROM seasons
+    WHERE show_id = %(show_id)s
+    ORDER BY season_number
+    """ % {'show_id': show_id}
+    return data_manager.execute_select(query)
