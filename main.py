@@ -41,12 +41,24 @@ def display_show(show_id):
         show['runtime'] = f"{show['runtime'] / 60}h {show['runtime'] % 60}min"
     else:
         show['runtime'] = f"{show['runtime']}min"
+    if show['trailer'] != 'No URL':
+        show['trailer'] = convert_to_embed_url(show['trailer'])
     return render_template('display_show.html', show=show)
 
 
 @app.route('/design')
 def design():
     return render_template('design.html')
+
+
+def convert_to_embed_url(url):
+    query_string = url.split('?')[1]
+    query_params = query_string.split('&')
+    query_params = [item.split('=') for item in query_params]
+    for param in query_params:
+        if param[0] == 'v':
+            video_id = param[1]
+    return video_id
 
 
 def get_page_numbers():

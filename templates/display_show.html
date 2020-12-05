@@ -4,7 +4,7 @@
 
 {% block styling %}
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
-
+    <script src="{{ url_for('static', filename='js/embed-youtube.js') }}" defer></script>
 {% endblock %}
 
 {% block main_title %} {{ show['title'] }} {% endblock %}
@@ -15,6 +15,10 @@
                 <div class="col col-twothird">
                     <h2>{{ show['title'] }}</h2>
                     <p class="small grayed">{{ show['rating'] }} ☆ <span class="separator">|</span> {{ show['runtime'] }} <span class="separator">|</span> {{ show['genres'] }} </p>
+                    {% if show['trailer'] != 'No URL' %}
+                         <script>let videoId = "{{ show['trailer'] }}" </script>
+                    {% endif %}
+                    <div id="player"></div>
                     <p>{{ show['overview'] }}</p>
                 </div>
             </div>
