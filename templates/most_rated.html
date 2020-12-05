@@ -9,10 +9,41 @@
 <thead>
 <tr>
     <th>
-        <a href="{{ url_for('most_rated', page=1, order_by='title', reverse=not reverse) }}"> Title </a></th>
-    <th>Year</th>
-    <th>Runtime (min)</th>
-    <th>Rating ⇩</th>
+        {% if order_by != 'title' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='title', order='ASC') }}"> Title </a>
+        {% elif order_by == 'title' and order == 'DESC' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='title', order='ASC') }}"> Title ⇩</a>
+        {% else %}
+            <a href="{{ url_for('most_rated', page=1, order_by='title', order='DESC') }}"> Title ⇧</a>
+        {% endif %}
+    </th>
+    <th>
+        {% if order_by != 'year' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='year', order='DESC') }}"> Year </a>
+        {% elif order_by == 'year' and order == 'DESC' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='year', order='ASC') }}"> Year ⇩</a>
+        {% else %}
+            <a href="{{ url_for('most_rated', page=1, order_by='year', order='DESC') }}"> Year ⇧</a>
+        {% endif %}
+    </th>
+    <th>
+        {% if order_by != 'runtime' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='runtime', order='DESC') }}"> Runtime </a>
+        {% elif order_by == 'runtime' and order == 'DESC' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='runtime', order='ASC') }}"> Runtime ⇩</a>
+        {% else %}
+            <a href="{{ url_for('most_rated', page=1, order_by='runtime', order='DESC') }}"> Runtime ⇧</a>
+        {% endif %}
+    </th>
+    <th>
+       {% if order_by != 'rating' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='rating', order='DESC') }}"> Rating </a>
+        {% elif order_by == 'rating' and order == 'DESC' %}
+            <a href="{{ url_for('most_rated', page=1, order_by='rating', order='ASC') }}"> Rating ⇩</a>
+        {% else %}
+            <a href="{{ url_for('most_rated', page=1, order_by='rating', order='DESC') }}"> Rating ⇧</a>
+        {% endif %}
+    </th>
     <th>Genres</th>
     <th>Trailer</th>
     <th>Homepage</th>
@@ -48,7 +79,7 @@
     <div class="card">
         <div class="pagination">
         {% if page != 1 %}
-            <a href="{{ url_for('most_rated', page=page_before, order_by=order_by, reverse=reverse) }}">«</a>
+            <a href="{{ url_for('most_rated', page=page_before, order_by=order_by, order=order) }}">«</a>
         {% else %}
             <a href="#">«</a>
         {% endif %}
@@ -56,11 +87,11 @@
         {% if num == page %}
             <a href="#" class="active">{{ num }}</a>
         {% else %}
-            <a href="{{ url_for('most_rated', page=num, order_by=order_by, reverse=reverse) }}" class="pagination">{{ num }}</a>
+            <a href="{{ url_for('most_rated', page=num, order_by=order_by, order=order) }}" class="pagination">{{ num }}</a>
         {% endif %}
     {% endfor %}
         {% if page != page_numbers[-1] %}
-            <a href="{{ url_for('most_rated', page=page_after, order_by=order_by, reverse=reverse) }}">»</a>
+            <a href="{{ url_for('most_rated', page=page_after, order_by=order_by, order=order) }}">»</a>
         {% else %}
             <a href="#">»</a>
         {% endif %}

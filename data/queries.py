@@ -6,12 +6,8 @@ def get_shows():
     return data_manager.execute_select('SELECT id, title FROM shows;')
 
 
-def most_rated(page, order_by='rating', reverse=True):
+def most_rated(page, order_by='rating', order='DESC'):
     elem_per_page = 15
-    if reverse is True:
-        order = 'DESC'
-    else:
-        order = 'ASC'
     offset = (int(page) - 1) * elem_per_page + 1
     query = """SELECT 
     shows.id, 

@@ -15,16 +15,21 @@ def index():
 
 @app.route('/shows/most-rated')
 def index_most_rated():
-    return redirect('/shows/most-rated/1/rating/True')
+    return redirect('/shows/most-rated/1/rating/DESC')
 
 
-@app.route('/shows/most-rated/<page>/<order_by>/<reverse>')
-def most_rated(page, order_by='rating', reverse=True):
-    shows_list = queries.most_rated(page, order_by=order_by, reverse=reverse)
+@app.route('/shows')
+def list_shows():
+    return redirect('/shows/most-rated/1/rating/DESC')
+
+
+@app.route('/shows/most-rated/<page>/<order_by>/<order>')
+def most_rated(page, order_by='rating', order='DESC'):
+    shows_list = queries.most_rated(page, order_by=order_by, order=order)
     page_numbers = get_page_numbers()
     page_before = int(page) - 1
     page_after = int(page) + 1
-    return render_template('most_rated.html', shows_list=shows_list, page_numbers=page_numbers, page=int(page), page_before=page_before, page_after=page_after, order_by=order_by, reverse=reverse)
+    return render_template('most_rated.html', shows_list=shows_list, page_numbers=page_numbers, page=int(page), page_before=page_before, page_after=page_after, order_by=order_by, order=order)
 
 
 @app.route('/show/<show_id>')
