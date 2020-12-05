@@ -20,8 +20,28 @@ def most_rated(page, order_by='rating', order='DESC'):
     COALESCE(homepage, 'No URL') AS homepage 
     FROM shows 
     LEFT JOIN show_genres sg on shows.id = sg.show_id 
-    LEFT JOIN genres g on g.id = sg.genre_id GROUP BY shows.id 
+    LEFT JOIN genres g on g.id = sg.genre_id 
+    GROUP BY shows.id 
     ORDER BY %(by_)s %(order)s 
     OFFSET %(offset)s 
-    LIMIT %(elem_per_page)s""" % {'by_': order_by, 'order': order, 'offset': offset, 'elem_per_page': elem_per_page};
+    LIMIT %(elem_per_page)s""" % {'by_': order_by, 'order': order, 'offset': offset, 'elem_per_page': elem_per_page}
     return data_manager.execute_select(query)
+
+
+def get_show(show_id):
+    query = """SELECT
+    title,
+    runtime,
+    ROUND(rating, 1) AS rating,
+    STRING_AGG(DISTINCT g.name, ', ') AS genres,
+    overview,
+    STRING_AGG(DISTINCT a.name, ', ') AS actors,
+    COALESCE(trailer, 'No URL') AS trailer
+    FROM shows
+    INNER JOIN show_genres sg on shows.id = sg.show_id
+    INNER JOIN genres g on g.id = sg.genre_id
+    INNER JOIN show_characters sc on shows.id = sc.show_id
+    INNER JOIN actors a on a.id = sc.actor_id
+    WHERE shows.id = %(show_id)s
+    GROUP BY title, runtime, rating, overview, trailer""" % {'show_id': show_id}
+    return data_manager.execute_select(query, fetchall=False)

@@ -34,6 +34,13 @@ def most_rated(page, order_by='rating', order='DESC'):
 
 @app.route('/show/<show_id>')
 def display_show(show_id):
+    show = queries.get_show(show_id)
+    if show['runtime'] % 60 == 0:
+        show['runtime'] = f"{show['runtime'] / 60}h"
+    elif show['runtime'] > 60:
+        show['runtime'] = f"{show['runtime'] / 60}h {show['runtime'] % 60}min"
+    else:
+        show['runtime'] = f"{show['runtime']}min"
     return render_template('display_show.html', show=show)
 
 

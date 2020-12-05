@@ -1,1 +1,25 @@
 {% extends 'base_template.html' %}
+
+{% block page_title %} {{  show['title'] }} {% endblock %}
+
+{% block styling %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+
+{% endblock %}
+
+{% block main_title %} {{ show['title'] }} {% endblock %}
+
+{% block content %}
+<div class="card detailed-view">
+            <div class="row">
+                <div class="col col-twothird">
+                    <h2>{{ show['title'] }}</h2>
+                    <p class="small grayed">{{ show['rating'] }} ☆ <span class="separator">|</span> {{ show['runtime'] }} <span class="separator">|</span> {{ show['genres'] }} </p>
+                    <p>{{ show['overview'] }}</p>
+                </div>
+            </div>
+            <div>
+                <p><b>Stars:</b>&nbsp;{{ show['actors'] }}</p>
+            </div>
+        </div>
+{% endblock %}
