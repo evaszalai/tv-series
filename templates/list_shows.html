@@ -1,0 +1,36 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %} All shows with episodes {% endblock %}
+
+{% block styling %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/show-episodes.css') }}">
+<script src="{{ url_for('static', filename = 'js/shows-with-episodes.js') }}" defer></script>
+{% endblock %}
+
+{% block main_title %} All shows with episodes {% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <table>
+        <thead>
+        <th>Show title</th>
+        <th>Total number of episodes</th>
+        </thead>
+        <tbody>
+        {% for show in shows %}
+            <tr>
+                {% if show['is_long'] %}
+                    <td>{{ show['title'] }} <i class="fa fa-expand"></i></td>
+                    <td>{{ show['number_of_episodes'] }}</td>
+                {% else %}
+                    <td>{{ show['title'] }} <i class="fa fa-compress"></i></td>
+                    <td>{{ show['number_of_episodes'] }}</td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

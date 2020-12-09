@@ -69,3 +69,14 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def get_shows_with_episodes():
+    query = """SELECT
+    shows.title, COUNT(DISTINCT e.id) AS number_of_episodes
+    FROM shows
+    LEFT JOIN seasons s on shows.id = s.show_id
+    LEFT JOIN episodes e on s.id = e.season_id
+    GROUP BY shows.title
+    ORDER BY shows.title"""
+    return data_manager.execute_select(query)

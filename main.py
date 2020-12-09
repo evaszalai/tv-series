@@ -13,6 +13,15 @@ def index():
     return render_template('index.html', shows=shows)
 
 
+@app.route('/list-shows-with-episodes')
+def shows_with_episodes():
+    shows = queries.get_shows_with_episodes()
+    for show in shows:
+        if show['number_of_episodes'] >= 100:
+            show['is_long'] = True
+    return render_template('list_shows.html', shows=shows)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')
