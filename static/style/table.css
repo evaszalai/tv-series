@@ -30,11 +30,11 @@ table td {
     margin: 0;
     padding: 6px;
 }
-/*
+
 table tr:nth-child(even) {
     background: #edf3f7;
 }
-*/
+
 table th.action-column {
     background: rgb(203, 75, 70);
 }
