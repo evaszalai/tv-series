@@ -2,18 +2,38 @@ const stars = {
     init: function () {
         stars.addEventListenersToStars();
     },
+    _goldStars: 0,
     addEventListenersToStars: function () {
-        let starList = document.getElementsByClassName("fa-star");
+        let starList = document.querySelectorAll('.fa-star');
+        console.log(starList);
         for (let star of starList) {
-            console.log(star.id);
+            console.log(star);
             star.addEventListener('mouseover', stars.fillStars);
+            star.addEventListener('mouseleave', stars.restoreStars);
         }
     },
     fillStars: function(e) {
-        e.currentTarget.classList.remove('gold');
-        console.log(e.currentTarget.left);
-        e.currentTarget.left.classList.add('icon-star');
-        e.currentTarget.right.classList.add('icon-star-empty');
+        stars._goldStars = e.currentTarget.parentNode.querySelectorAll('.gold').length;
+        let starRow = e.currentTarget.parentNode.children
+        for (let star of starRow) {
+            star.classList.remove('gold');
+        }
+        for (let star of starRow) {
+            star.classList.add('gold');
+            if (star === e.currentTarget) {
+                break;
+            }
+        }
+    },
+    restoreStars: function(e) {
+        let starRow = e.currentTarget.parentNode.children
+        for (let star of starRow) {
+            star.classList.remove('gold');
+        }
+        for (let i=0; i<stars._goldStars; i++) {
+            starRow[i].classList.add('gold');
+        }
+
     }
 }
 

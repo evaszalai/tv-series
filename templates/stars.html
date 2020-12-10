@@ -2,7 +2,7 @@
 
 {% block page_title %} Top shows per genre {% endblock %}
 {% block styling %}
-<script src="{{ url_for('static', filename='js/stars.js') }}"></script>
+<script src="{{ url_for('static', filename='js/stars.js') }}" defer></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='style/stars.css') }}">
 {% endblock %}
 {% block main_title %} Top shows per genre {% endblock %}
