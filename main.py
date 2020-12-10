@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -12,6 +12,14 @@ def index():
     shows = queries.get_shows()
     return render_template('index.html', shows=shows)
 
+
+@app.route('/stars')
+def stars_per_genre():
+    genre = request.args.get('search')
+    shows = queries.get_top_by_genre(genre)
+    for show in shows:
+        show['rating'] = round(show['rating'])
+    return render_template('stars.html', shows=shows)
 
 @app.route('/shows/most-rated')
 def index_most_rated():
@@ -77,7 +85,7 @@ def get_page_numbers():
 
 
 def main():
-    app.run(debug=False)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':
