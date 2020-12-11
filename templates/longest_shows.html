@@ -1,0 +1,53 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %} Longest shows {% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/highlight.js') }}" defer></script>
+{% endblock %}
+
+{% block main_title %} Longest shows {% endblock %}
+
+{% block content %}
+
+    <div class="card">
+    <table>
+        <thead>
+        <tr>
+            <th>Show title</th>
+            <th>Total runtime (min)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for show in shows %}
+        <tr data-id="{{ show.id }}" class="show">
+        <td>
+            {{ show.title }}
+        </td>
+        <td>
+            {{  show.total_runtime }}
+        </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th> Name of actor</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for actor in actors %}
+            {% if actor.name == '' %}
+            {{ continue }}
+            {% else %}
+            <tr data-id="{{ actor.id }}" class="actor">
+                <td>{{  actor.name }}</td>
+            </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}

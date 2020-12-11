@@ -1,7 +1,8 @@
 .card {
     position: relative;
 
-    display: block;
+    display: flex;
+    flex-direction: row;
 
     margin-bottom: 20px;
     padding: 24px;

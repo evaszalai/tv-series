@@ -69,3 +69,25 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def get_longest_shows():
+    query = """SELECT shows.id, shows.title, (runtime * COUNT(e.id)) AS total_runtime
+        FROM shows
+        LEFT JOIN seasons s on shows.id = s.show_id
+        LEFT JOIN episodes e on s.id = e.season_id
+        GROUP BY shows.id
+        ORDER BY total_runtime DESC
+        LIMIT 10"""
+    return data_manager.execute_select(query)
+
+
+def get_actors_in_longest(longest_shows):
+    query = """SELECT shows.id, COALESCE(a.name, '') AS name
+        FROM shows
+        FULL JOIN show_characters sc on shows.id = sc.show_id
+        FULL JOIN actors a on a.id = sc.actor_id
+        WHERE shows.id IN %(longest_shows)s
+        ORDER BY a.name"""
+    params = {'longest_shows': longest_shows}
+    return data_manager.execute_select(query, params)

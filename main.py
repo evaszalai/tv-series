@@ -13,6 +13,18 @@ def index():
     return render_template('index.html', shows=shows)
 
 
+@app.route('/longest')
+def longest():
+    shows = queries.get_longest_shows()
+    show_ids = []
+    for show in shows:
+        show_ids.append(show['id'])
+        show['total_runtime'] = f'{show["total_runtime"]//60}h {show["total_runtime"] % 60}min'
+    show_ids = tuple(show_ids)
+    actors = queries.get_actors_in_longest(show_ids)
+    return render_template('longest_shows.html', shows=shows, actors=actors)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')
@@ -77,7 +89,7 @@ def get_page_numbers():
 
 
 def main():
-    app.run(debug=False)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':
