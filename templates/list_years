@@ -1,0 +1,34 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %} List years {% endblock %}
+{% block styling %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/years.css') }}">
+    <script src="{{ url_for('static', filename='js/sum-cards.js') }}" defer></script>
+{% endblock %}
+{% block main_title %} List years {% endblock %}
+
+{% block content %}
+    <div class="card">
+        <form action="/years">
+            <label for="start">Choose starting year:</label>
+            <input type="text" id="start" name="start">
+            <label for="end"></label>
+            <input type="text" id="end" name="end">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    {% if years %}
+        <div class="card" id="container">
+    {% for year in years %}
+        <div class="small-card">
+            <div class="year">{{ year.year }}</div>
+            <div class="rating">{{ year.rating }}</div>
+            <div class="number">{{ year.number }} shows</div>
+        </div>
+    {% endfor %}
+
+    </div>
+    {% endif %}
+
+{% endblock %}

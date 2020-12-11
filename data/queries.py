@@ -69,3 +69,17 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def shows_in_year(start, end):
+    query = """SELECT 
+    TO_CHAR(year, 'yyyy') AS year, 
+    ROUND(AVG(rating), 1) AS rating, 
+    COUNT(id) AS number
+    FROM shows
+    WHERE CAST(TO_CHAR(year, 'yyyy') AS INT) BETWEEN %(start)s AND %(end)s
+    GROUP BY year
+    ORDER BY year 
+    """
+    params = {'start': start, 'end': end}
+    return data_manager.execute_select(query, params)

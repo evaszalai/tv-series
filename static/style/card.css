@@ -1,7 +1,10 @@
 .card {
     position: relative;
 
-    display: block;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
 
     margin-bottom: 20px;
     padding: 24px;
