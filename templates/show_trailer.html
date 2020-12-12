@@ -1,7 +1,9 @@
 {% extends 'base_template.html' %}
 
 {% block page_title %} Search shows {% endblock %}
-{% block styling %} {% endblock %}
+{% block styling %}
+<script src="{{ url_for('static', filename='js/trailer.js') }}" defer></script>
+{% endblock %}
 {% block main_title %} Search shows {% endblock %}
 {% block content %}
 
@@ -29,7 +31,7 @@
             <td>{{ show.rating }}</td>
             {% if show.trailer != 'No URL' %}
             <td>
-                <button class="trailer">Watch trailer</button>
+                <button class="trailer" id="{{ show.trailer }}">Watch trailer</button>
             </td>
             {% else %}
             <td> No trailer </td>
