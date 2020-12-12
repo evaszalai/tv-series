@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -11,6 +11,16 @@ app = Flask('codecool_series')
 def index():
     shows = queries.get_shows()
     return render_template('index.html', shows=shows)
+
+
+@app.route('/show-trailer')
+def show_trailer():
+    if request.args.get('search') is not None:
+        search_by = f"%{request.args.get('search')}%"
+        shows = queries.get_shows_by_search(search_by)
+    else:
+        shows = None
+    return render_template('show_trailer.html', shows=shows)
 
 
 @app.route('/shows/most-rated')
@@ -77,7 +87,7 @@ def get_page_numbers():
 
 
 def main():
-    app.run(debug=False)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':

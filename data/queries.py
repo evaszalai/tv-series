@@ -69,3 +69,14 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def get_shows_by_search(search_by):
+    query = """
+    SELECT title, year, ROUND(rating, 1) AS rating, COALESCE(trailer, 'No URL') AS trailer
+        FROM shows
+        WHERE title ILIKE %(search_by)s
+        ORDER BY title
+    """
+    params = {'search_by': search_by}
+    return data_manager.execute_select(query, params)
