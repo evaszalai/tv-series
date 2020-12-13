@@ -13,6 +13,15 @@ def index():
     return render_template('index.html', shows=shows)
 
 
+@app.route('/actors')
+def actors():
+    actors_list = queries.get_actors_with_age()
+    for actor in actors_list:
+        if actor['age'] is not None:
+            actor['age'] = int(actor['age'])
+    return render_template('list_actors_with_age.html', actors=actors_list)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')
