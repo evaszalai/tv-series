@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request 
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -11,6 +11,32 @@ app = Flask('codecool_series')
 def index():
     shows = queries.get_shows()
     return render_template('index.html', shows=shows)
+
+
+@app.route('/<year>')
+def born_from(year):
+    try:
+        check_year(year)
+        year = f'{year}-01-01'
+        actors = queries.get_actors_born_after(year)
+        return render_template('born_after.html', actors=actors)
+    except ValueError as error_message:
+        return f'<h1>{error_message}</h1>'
+
+
+@app.route('/born-from')
+def born_from_date():
+    input_date = request.args.get('year')
+    actors = queries.get_actors_born_after(input_date)
+    print(actors)
+    return render_template('born_after.html', actors=actors)
+
+
+
+
+def check_year(year):
+    if year.isdigit() is False or len(year) != 4:
+        raise ValueError("This is not a valid year.")
 
 
 @app.route('/shows/most-rated')
@@ -77,7 +103,7 @@ def get_page_numbers():
 
 
 def main():
-    app.run(debug=False)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':

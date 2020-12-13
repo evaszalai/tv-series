@@ -1,0 +1,40 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %}Born after...{% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/change-rating.js') }}" defer></script>{% endblock %}
+{% block main_title %} Actors born after certain year {% endblock %}
+
+{% block content %}
+    <div class="card">
+        <form action="{{ url_for('born_from_date', year=year) }}">
+            <label for="year">Write a date here to search (yyyy-mm-dd):</label>
+            <input type="text" name="year" id="year">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div class="card">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Birthday</th>
+            <th>Nr. of characters played</th>
+            <th>Average show rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for actor in actors %}
+        <tr>
+        <td>{{ actor.name }}</td>
+        <td>{{ actor.birthday }}</td>
+        <td>{{ actor.characters }}</td>
+        <td class="rating">{{ actor.rating }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}

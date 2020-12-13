@@ -69,3 +69,17 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def get_actors_born_after(year):
+    query = """
+    SELECT a.name, a.birthday, COUNT(DISTINCT sc.id) AS characters, ROUND(AVG(s.rating), 1) AS rating
+FROM actors a
+LEFT JOIN show_characters sc on a.id = sc.actor_id
+LEFT JOIN shows s on sc.show_id = s.id
+WHERE a.birthday BETWEEN %(year)s AND current_date
+GROUP BY a.name, a.birthday, a.name
+ORDER BY a.name
+    """
+    params = {'year': year}
+    return data_manager.execute_select(query, params)
