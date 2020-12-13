@@ -1,0 +1,10 @@
+{% extends 'base_template.html' %}
+{% block page_title %} List by genre {% endblock %}
+{% block styling %} {% endblock %}
+{% block main_title %} List shows by genre {% endblock %}
+
+{% block content %}
+{% for show in shows %}
+    <div class="card">{{ show.title }}</div>
+{% endfor %}
+{% endblock %}

@@ -69,3 +69,19 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def list_by_genre(genre):
+    query = """SELECT title
+FROM shows
+RIGHT JOIN show_genres sg on shows.id = sg.show_id
+RIGHT JOIN genres g on g.id = sg.genre_id
+WHERE g.name ILIKE %(genre)s
+ORDER BY title;
+     """
+    params = {'genre': genre}
+    return data_manager.execute_select(query, params)
+
+
+def list_all_genres():
+    return data_manager.execute_select("SELECT name FROM GENRES")

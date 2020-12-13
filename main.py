@@ -13,6 +13,19 @@ def index():
     return render_template('index.html', shows=shows)
 
 
+@app.route('/by_genre/<genre>')
+def list_by_genre(genre):
+    genres = []
+    genres_list = queries.list_all_genres()
+    for item in genres_list:
+        genres.append(item['name'].lower())
+    if genre.lower() not in genres:
+        return "<h1>This genre does not exist.</h1>"
+    else:
+        shows = queries.list_by_genre(genre)
+        return render_template('list-by-genre.html', shows=shows)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')
@@ -77,7 +90,7 @@ def get_page_numbers():
 
 
 def main():
-    app.run(debug=False)
+    app.run(debug=True)
 
 
 if __name__ == '__main__':
