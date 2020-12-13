@@ -1,0 +1,39 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %}
+    {% if year != None %}
+    Actors of shows released in {{ year[:4] }}
+    {% else %}
+    Choose a year to display actors
+    {% endif %}
+{% endblock %}
+{% block styling %} {% endblock %}
+{% block main_title %} {% if year != None %}
+    Actors of shows released in {{ year[:4] }}
+    {% else %}
+    Choose a year to display actors
+    {% endif %}
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <form action="{{ url_for('shows_and_actors_from_year') }}">
+            <label for="year">Enter a year:</label>
+            <input type="text" name="year" id="year" placeholder="e. g. 1997">
+            <input type="submit">
+        </form>
+    </div>
+
+    {% if year %}
+<div class="card">
+    {% if error %}
+<p>{{  error }}</p>
+    {% else %}
+<ol>
+    {% for actor in actors %}
+    <li data-older="{{ actor.older }}">{{ actor.name }}, {{ actor.age }}</li>
+    {% endfor %}
+</ol>
+    {% endif %}
+</div>
+    {% endif %}
+{% endblock %}

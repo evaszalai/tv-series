@@ -69,3 +69,17 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def get_actors_from_year(year):
+    query = """SELECT a.name,
+       EXTRACT(YEAR FROM AGE(s.year, a.birthday)) AS age,
+       EXTRACT(YEAR FROM AGE(current_date, s.year)) AS show_age
+FROM shows s
+LEFT JOIN show_characters sc on s.id = sc.show_id
+LEFT JOIN actors a on sc.actor_id = a.id
+WHERE s.year = %(year)s
+ORDER BY age DESC
+     """
+    params = {'year': year}
+    return data_manager.execute_select(query, params)

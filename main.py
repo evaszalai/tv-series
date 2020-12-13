@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -11,6 +11,33 @@ app = Flask('codecool_series')
 def index():
     shows = queries.get_shows()
     return render_template('index.html', shows=shows)
+
+
+@app.route('/old-shows')
+def shows_and_actors_from_year():
+    year = request.args.get('year')
+    if year is not None:
+        try:
+            check_year(year)
+            year = f'{year}-01-01'
+            actors = queries.get_actors_from_year(year)
+            for actor in actors:
+                if actor['age'] is not None and actor['show_age'] is not None:
+                    if actor['age'] > actor["show_age"]:
+                        actor['older'] = True
+                    else:
+                        actor['older'] = False
+                else:
+                    actor['older'] = 'Not known'
+            return render_template('actors_from_year.html', actors=actors, year=year, error=None)
+        except ValueError as error_message:
+            return render_template('actors_from_year.html', actors=None, error=error_message, year=year)
+    return render_template('actors_from_year.html', actors=None, error=None, year=None)
+
+
+def check_year(year):
+    if not year.isdigit() or len(year) != 4:
+        raise ValueError("This is not a valid year input.")
 
 
 @app.route('/shows/most-rated')
