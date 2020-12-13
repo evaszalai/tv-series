@@ -1,10 +1,15 @@
 {% extends 'base_template.html' %}
 {% block page_title %} List by genre {% endblock %}
-{% block styling %} {% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/color-numbers.js') }}" defer></script>
+{% endblock %}
 {% block main_title %} List shows by genre {% endblock %}
 
 {% block content %}
 {% for show in shows %}
-    <div class="card">{{ show.title }}</div>
+    <div class="card">
+        {{ show.title }}
+    <div class="characters">{{ show.characters }}</div>
+    </div>
 {% endfor %}
 {% endblock %}

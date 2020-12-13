@@ -72,12 +72,14 @@ def get_seasons(show_id):
 
 
 def list_by_genre(genre):
-    query = """SELECT title
+    query = """SELECT title, COUNT(sc.id) AS characters
 FROM shows
 RIGHT JOIN show_genres sg on shows.id = sg.show_id
 RIGHT JOIN genres g on g.id = sg.genre_id
+FULL JOIN show_characters sc on shows.id = sc.show_id
 WHERE g.name ILIKE %(genre)s
-ORDER BY title;
+GROUP BY title
+ORDER BY title
      """
     params = {'genre': genre}
     return data_manager.execute_select(query, params)
