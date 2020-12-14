@@ -28,6 +28,7 @@
 
     <!-- page specific styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+    <script src="{{ url_for('static', filename='js/seasons.js') }}" defer></script>
 </head>
 
 <body>
@@ -53,13 +54,14 @@
             </p>
         </div>
         <div class="card">
-            <input type="range" name="season-numbers" id="season-numbers" min="1" max="{{ seasons[0].number_of_seasons }}">
+            <input type="range" name="season-numbers" id="season-numbers" min="1" max="{{ shows[0].number_of_seasons }}">
         </div>
         <div class="card">
             <ul id="show-list">
                 {% for show in shows %}
-                    <li id="{{ show.id }}">
-                        <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>
+                    <li class="show" id="{{ show.show_id }}" data-seasons="{{ show.number_of_seasons }}"
+                    >
+                        <a href="{{ '/tv-show/' + (show['show_id'] | string) }}">{{ show['title'] }}</a>
                     </li>
                 {% endfor %}
             </ul>

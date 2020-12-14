@@ -10,9 +10,8 @@ app = Flask('codecool_series')
 
 @app.route('/')
 def index():
-    shows = queries.get_shows()
-    seasons = queries.get_highest_season_number()
-    return render_template('index.html', shows=shows, seasons=seasons)
+    shows = queries.get_highest_season_number()
+    return render_template('index.html', shows=shows)
 
 
 @app.route('/shows/most-rated')

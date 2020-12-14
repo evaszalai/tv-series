@@ -72,9 +72,10 @@ def get_seasons(show_id):
 
 
 def get_highest_season_number():
-    query = """SELECT show_id, COUNT(id) AS number_of_seasons
+    query = """SELECT show_id, s.title, COUNT(seasons.id) AS number_of_seasons
 FROM seasons
-GROUP BY show_id
+LEFT JOIN shows s on seasons.show_id = s.id
+GROUP BY show_id, s.title
 ORDER BY number_of_seasons DESC
     """
     return data_manager.execute_select(query)
