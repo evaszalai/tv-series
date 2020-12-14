@@ -23,7 +23,7 @@ def shows_and_actors_from_year():
             actors = queries.get_actors_from_year(year)
             for actor in actors:
                 if actor['age'] is not None and actor['show_age'] is not None:
-                    if actor['age'] > actor["show_age"]:
+                    if (actor['age'] - actor['show_age']) > actor["show_age"]:
                         actor['older'] = True
                     else:
                         actor['older'] = False

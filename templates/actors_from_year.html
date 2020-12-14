@@ -7,7 +7,8 @@
     Choose a year to display actors
     {% endif %}
 {% endblock %}
-{% block styling %} {% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/highlight_older.js') }}" defer></script>{% endblock %}
 {% block main_title %} {% if year != None %}
     Actors of shows released in {{ year[:4] }}
     {% else %}
@@ -23,17 +24,14 @@
         </form>
     </div>
 
-    {% if year %}
-<div class="card">
     {% if error %}
 <p>{{  error }}</p>
-    {% else %}
+    {% elif actors and year %}
 <ol>
     {% for actor in actors %}
-    <li data-older="{{ actor.older }}">{{ actor.name }}, {{ actor.age }}</li>
+        <div class="card" data-older="{{ actor.older }}"> <li >{{ actor.name }}, {{ actor.age | int }}</li> </div>
     {% endfor %}
 </ol>
     {% endif %}
-</div>
-    {% endif %}
+
 {% endblock %}

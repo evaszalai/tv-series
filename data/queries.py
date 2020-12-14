@@ -73,7 +73,7 @@ def get_seasons(show_id):
 
 def get_actors_from_year(year):
     query = """SELECT a.name,
-       EXTRACT(YEAR FROM AGE(s.year, a.birthday)) AS age,
+       EXTRACT(YEAR FROM AGE(current_date, a.birthday)) AS age,
        EXTRACT(YEAR FROM AGE(current_date, s.year)) AS show_age
 FROM shows s
 LEFT JOIN show_characters sc on s.id = sc.show_id
