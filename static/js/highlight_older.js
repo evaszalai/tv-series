@@ -5,9 +5,18 @@ const highlight = {
             console.log(oldCards);
             oldCards.forEach((card) => {
                 card.classList.add('yellow');
-            })
-            //highlight.addEventListenersToCards();
+            });
         }
+        highlight.addEventListenersToCards();
+    },
+
+    addEventListenersToCards: function () {
+        let cards = document.querySelectorAll('.card');
+        cards.forEach((card) => {
+            card.addEventListener('click', function () {
+                alert(`${card.dataset.actor}, ${card.dataset.show}`);
+            })
+        })
     }
 }
 

@@ -29,7 +29,11 @@
     {% elif actors and year %}
 <ol>
     {% for actor in actors %}
-        <div class="card" data-older="{{ actor.older }}"> <li >{{ actor.name }}, {{ actor.age | int }}</li> </div>
+        <div class="card" data-older="{{ actor.older }}"
+             {% if actor.age != None and actor.show_age != None %}
+             data-actor="{{ (actor.age - actor.show_age) | int }}" data-show="{{ actor.show_age | int }}"
+            {% endif %}
+        > <li >{{ actor.name }}, {{ actor.age | int }}</li> </div>
     {% endfor %}
 </ol>
     {% endif %}
