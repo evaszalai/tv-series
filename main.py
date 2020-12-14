@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request
 from data import queries
 import math
 from dotenv import load_dotenv
+from util import json_response
 
 load_dotenv()
 app = Flask('codecool_series')
@@ -11,6 +12,18 @@ app = Flask('codecool_series')
 def index():
     shows = queries.get_shows()
     return render_template('index.html', shows=shows)
+
+
+@app.route('/search')
+def search_character():
+    search_words = request.args.get('search')
+    if search_words:
+        search = search_words.split(' ')
+        words = f"%{('%'.join(search))}%"
+        characters = queries.search_characters(words)
+    else:
+        characters = None
+    return render_template('search_characters.html', characters=characters)
 
 
 @app.route('/shows/most-rated')

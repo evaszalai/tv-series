@@ -69,3 +69,14 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def search_characters(words):
+    query = """SELECT character_name, s.title AS title, a.name AS name
+FROM show_characters
+LEFT JOIN actors a on a.id = show_characters.actor_id
+LEFT OUTER JOIN shows s on s.id = show_characters.show_id
+WHERE character_name ILIKE %(words)s
+    """
+    params = {"words": words}
+    return data_manager.execute_select(query, params)

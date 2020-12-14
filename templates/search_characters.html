@@ -1,0 +1,28 @@
+{% extends 'base_template.html' %}
+{% block page_title %}
+Search characters
+{% endblock %}
+{% block styling %}
+
+{% endblock %}
+{% block main_title %}
+Search characters
+{% endblock %}
+{% block content %}
+<div class="card">
+    <form action="{{ url_for('search_character') }}">
+        <label for="search">Search:</label>
+        <input type="text" name="search" id="search">
+        <input type="submit" value="Submit">
+    </form>
+</div>
+    {% if characters %}
+    <div class="card">
+    <ul>
+        {% for character in characters %}
+        <li>{{ character.name }} played {{ character.character_name }} in {{ character.title }}.</li>
+        {% endfor %}
+    </ul>
+    </div>
+    {% endif %}
+{% endblock %}
