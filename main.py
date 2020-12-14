@@ -16,14 +16,13 @@ def index():
 
 @app.route('/search')
 def search_character():
-    search_words = request.args.get('search')
-    if search_words:
-        search = search_words.split(' ')
-        words = f"%{('%'.join(search))}%"
-        characters = queries.search_characters(words)
-    else:
-        characters = None
-    return render_template('search_characters.html', characters=characters)
+    return render_template('search_characters.html')
+
+
+@app.route('/search-ajax/<search_words>')
+@json_response
+def search_ajax(search_words):
+    return queries.search_characters(search_words)
 
 
 @app.route('/shows/most-rated')
