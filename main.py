@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request
 from data import queries
 import math
 from dotenv import load_dotenv
+from util import json_response
 
 load_dotenv()
 app = Flask('codecool_series')
