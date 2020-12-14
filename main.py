@@ -14,6 +14,17 @@ def index():
     return render_template('index.html', shows=shows)
 
 
+@app.route('/longest')
+def longest_shows():
+    genres = queries.get_genres()
+    return render_template('longest.html', genres=genres)
+
+
+@app.route('/longest/<int:genre_id>')
+@json_response
+def long_shows_by_genre(genre_id):
+    return queries.get_show_episodes_by_genre(genre_id)
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')

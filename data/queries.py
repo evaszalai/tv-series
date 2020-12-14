@@ -69,3 +69,24 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def get_genres():
+    query = "SELECT * FROM genres"
+    return data_manager.execute_select(query)
+
+
+def get_show_episodes_by_genre(genre_id):
+    query = """SELECT s.title, COUNT(DISTINCT s2.id) AS number_of_seasons, COUNT(e.id) AS number_of_episodes, genres.id
+FROM genres
+LEFT JOIN show_genres sg on genres.id = sg.genre_id
+LEFT JOIN shows s on s.id = sg.show_id
+LEFT JOIN seasons s2 on s.id = s2.show_id
+LEFT JOIN episodes e on s2.id = e.season_id
+WHERE genres.id = %(genre_id)s
+GROUP BY s.title, genres.id
+HAVING COUNT(e.id) > 19
+ORDER BY number_of_episodes
+LIMIT 50"""
+    params = {'genre_id': genre_id}
+    return data_manager.execute_select(query, params)

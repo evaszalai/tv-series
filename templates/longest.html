@@ -1,0 +1,33 @@
+{% extends 'base_template.html'%}
+
+{% block page_title %}
+Longest shows
+{% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/longest.js') }}" defer></script>
+{% endblock %}
+{% block main_title %}
+Longest shows
+{% endblock %}
+{% block content %}
+<div class="card">
+    <select name="genres" id="genres">
+        {% for genre in genres %}
+        <option value="{{ genre.id }}">{{ genre.name }}</option>
+        {% endfor %}
+    </select>
+    <button id="submit">Submit</button>
+</div>
+    <div class="card hidden" id="shows">
+    <table>
+        <thead>
+        <tr>
+            <th>Show Title</th>
+            <th>Season Count</th>
+            <th>Episode Count</th>
+        </tr>
+        </thead>
+        <tbody> </tbody>
+    </table>
+    </div>
+{% endblock %}
