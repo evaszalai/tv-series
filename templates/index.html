@@ -53,6 +53,9 @@
             </p>
         </div>
         <div class="card">
+            <input type="range" name="season-numbers" id="season-numbers" min="1" max="{{ seasons.number_of_seasons }}">
+        </div>
+        <div class="card">
             <ul>
                 {% for show in shows %}
                     <li>
