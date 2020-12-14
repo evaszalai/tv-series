@@ -53,12 +53,12 @@
             </p>
         </div>
         <div class="card">
-            <input type="range" name="season-numbers" id="season-numbers" min="1" max="{{ seasons.number_of_seasons }}">
+            <input type="range" name="season-numbers" id="season-numbers" min="1" max="{{ seasons[0].number_of_seasons }}">
         </div>
         <div class="card">
-            <ul>
+            <ul id="show-list">
                 {% for show in shows %}
-                    <li>
+                    <li id="{{ show.id }}">
                         <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>
                     </li>
                 {% endfor %}

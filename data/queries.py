@@ -76,6 +76,5 @@ def get_highest_season_number():
 FROM seasons
 GROUP BY show_id
 ORDER BY number_of_seasons DESC
-LIMIT 1
     """
-    return data_manager.execute_select(query, fetchall=False)
+    return data_manager.execute_select(query)
