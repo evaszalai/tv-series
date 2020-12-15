@@ -69,3 +69,15 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def list_selected(column, order):
+    if order == "ASC":
+        query = sql.SQL("""SELECT id, title, overview
+            FROM {table}
+            ORDER BY title ASC""").format(table=sql.Identifier(column))
+    else:
+        query = sql.SQL("""SELECT id, title, overview
+            FROM {table}
+            ORDER BY title DESC""").format(table=sql.Identifier(column))
+    return data_manager.execute_select(query)

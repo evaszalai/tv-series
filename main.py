@@ -14,6 +14,18 @@ def index():
     return render_template('index.html', shows=shows)
 
 
+@app.route('/list-selected')
+def list_selected():
+    column = request.args.get('column')
+    order = request.args.get('order')
+    if column is not None and order is not None:
+        items = queries.list_selected(column, order)
+    else:
+        items = None
+    return render_template('list_selected.html', items=items)
+
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')

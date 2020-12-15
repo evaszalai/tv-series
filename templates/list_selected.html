@@ -1,0 +1,38 @@
+{% extends 'base_template.html' %}
+{% block page_title %}
+List selection
+{% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/list-selected.js') }}" defer></script>
+{% endblock %}
+{% block main_title %}
+List selection
+{% endblock %}
+
+{% block content %}
+    <div class="card" id="form">
+        <form action="{{ url_for('list_selected') }}">
+            <select name="column" id="column">
+                <option value="episodes">Episodes</option>
+                <option value="seasons">Seasons</option>
+                <option value="shows">Shows</option>
+            </select>
+            <select name="order" id="order">
+                <option value="ASC">Ascending</option>
+                <option value="DESC">Descending</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    {% if items %}
+        <div class="card-container">
+        {% for item in items %}
+        <div class="card item">
+            {{ item.title }}
+        <div class="overview hidden">{{ item.overview }}</div>
+        </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}
