@@ -14,6 +14,18 @@ def index():
     return render_template('index.html', shows=shows)
 
 
+@app.route('/min-actors-shows')
+def list_min_actors():
+    shows = queries.shows_with_min_actors()
+    return render_template('min_actors.html', shows=shows)
+
+
+@app.route('/min-actors/<show_title>')
+@json_response
+def get_actors(show_title):
+    return queries.get_actors(show_title)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')

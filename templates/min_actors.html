@@ -1,0 +1,55 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %}
+Shows with the least actors
+{% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/MinActors.js') }}" defer></script>
+{% endblock %}
+{% block main_title %}
+Shows with the least actors
+{% endblock %}
+
+{% block content %}
+    <div id="modal" class="hidden">
+        <div class="modal-content">
+    <span class="close">&times;</span>
+   <table>
+       <thead>
+       <tr>
+           <th>Name</th>
+           <th>Birthday</th>
+           <th>Death</th>
+           <th>Biography</th>
+       </tr>
+       </thead>
+       <tbody id="modal-table">
+
+       </tbody>
+   </table>
+
+</div>
+    </div>
+<div class="card">
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Show Age (years)</th>
+        <th>Overview</th>
+        <th>Rating</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for show in shows %}
+        <tr>
+        <td class="show-title" id="{{ show.title }}">{{ show.title }}</td>
+        <td>{{ show.show_age | int }}</td>
+        <td>{{ show.overview }}</td>
+        <td>{{ show.rating }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock %}

@@ -69,3 +69,27 @@ def get_seasons(show_id):
     ORDER BY season_number
     """ % {'show_id': show_id}
     return data_manager.execute_select(query)
+
+
+def shows_with_min_actors():
+    query = """SELECT title, EXTRACT(YEAR FROM AGE(year)) AS show_age, overview, ROUND(rating, 1) AS rating, COUNT(a.id) AS actor_number
+        FROM shows
+        LEFT JOIN show_characters sc on shows.id = sc.show_id
+        LEFT JOIN actors a on sc.actor_id = a.id
+        GROUP BY title, AGE(year), overview, ROUND(rating, 1)
+        HAVING COUNT(a.id) > 0
+        ORDER BY actor_number
+        LIMIT 3"""
+    return data_manager.execute_select(query)
+
+
+def get_actors(show_title):
+    query = """SELECT actors.name, actors.birthday, actors.death, actors.biography
+FROM actors
+RIGHT JOIN show_characters sc on actors.id = sc.actor_id
+RIGHT JOIN shows s on sc.show_id = s.id
+WHERE s.title = %(show_title)s
+ORDER BY actors.name  
+    """
+    params = {'show_title': show_title}
+    return data_manager.execute_select(query, params)
