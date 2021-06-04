@@ -33,6 +33,7 @@ input[type="button"]:active {
 }
 
 header button,
+#options button,
 header input[type="submit"],
 header input[type="button"] {
     color: #fff;
@@ -43,6 +44,8 @@ header input[type="button"] {
 
 header button:hover,
 header button:active,
+#options button:hover,
+#options button:active,
 header input[type="submit"]:hover,
 header input[type="submit"]:active,
 header input[type="button"]:hover,

@@ -26,11 +26,11 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
-
+    <script src="{{ url_for('static', filename='js/menu.js') }}" defer></script>
     <!-- page specific styling -->
-{% block styling %}
+    {% block styling %}
 
-{% endblock %}
+    {% endblock %}
 </head>
 
 <body>
@@ -39,21 +39,24 @@
         <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
         <span id="header-title" class="title">
                     Codecool Series DB
-                </span>
+        </span>
         <div id="header-auth">
-            <button type="button" id="bt-register">Register</button>
-            <button type="button" id="bt-login">Login</button>
+            <button type="button" id="bt-options">Options</button>
         </div>
     </header>
+<div id="options" class="hidden">
+    <button type="button"><a href="{{ url_for('show_trailer') }}">Search trailers</a></button>
+    <button type="button">List by genre</button>
+</div>
     <section>
         <nav class="breadcrumb"> {% block breadcrumb %}{% endblock %}
         </nav>
         <h1 class="title text-center">{% block main_title %} Welcome page {% endblock %}</h1>
 
-    {% block content %} {% endblock %}
+        {% block content %} {% endblock %}
     </section>
-<footer>
-        Copyright, bla-bla
+    <footer>
+        Copyright by Codecool ©2020
     </footer>
 </div>
 <div class="background">
