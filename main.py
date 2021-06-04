@@ -1,7 +1,8 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from data import queries
 import math
 from dotenv import load_dotenv
+from util import json_response
 
 load_dotenv()
 app = Flask('codecool_series')
@@ -9,8 +10,20 @@ app = Flask('codecool_series')
 
 @app.route('/')
 def index():
-    shows = queries.get_shows()
-    return render_template('index.html', shows=shows)
+    return redirect('/shows/most-rated/1/rating/DESC')
+
+
+@app.route('/show-trailer')
+def show_trailer():
+    if request.args.get('search') is not None:
+        search_by = f"%{request.args.get('search')}%"
+        shows = queries.get_shows_by_search(search_by)
+        for show in shows:
+            if show['trailer'] != 'No URL':
+                show['trailer'] = f"https://www.youtube.com/embed/{convert_to_embed_url(show['trailer'])}"
+    else:
+        shows = None
+    return render_template('show_trailer.html', shows=shows)
 
 
 @app.route('/by_genre/<genre>')
