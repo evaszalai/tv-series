@@ -9,8 +9,7 @@ app = Flask('codecool_series')
 
 @app.route('/')
 def index():
-    shows = queries.get_shows()
-    return render_template('index.html', shows=shows)
+    return redirect('/shows/most-rated/1/rating/DESC')
 
 
 @app.route('/show-trailer')
