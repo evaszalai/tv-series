@@ -85,7 +85,6 @@ def shows_in_year(start, end):
     return data_manager.execute_select(query, params)
 
 
-
 def get_shows_by_search(search_by):
     query = """
     SELECT title, year, ROUND(rating, 1) AS rating, COALESCE(trailer, 'No URL') AS trailer
@@ -138,3 +137,19 @@ def get_top_by_genre(genre):
     """
     params = {'genre': genre}
     return data_manager.execute_select(query, params)
+
+
+def get_actors_with_age():
+    query = """SELECT a.name,
+       EXTRACT(YEAR FROM AGE(COALESCE(a.death, current_date), a.birthday)) AS age,
+       COUNT(sc.id) AS number_of_shows,
+       CASE
+WHEN a.death IS NULL THEN 'alive'
+ELSE 'dead'
+END AS alive
+FROM actors a
+LEFT JOIN show_characters sc on a.id = sc.actor_id
+GROUP BY a.name, age, a.death
+ORDER BY number_of_shows DESC
+    """
+    return data_manager.execute_select(query)

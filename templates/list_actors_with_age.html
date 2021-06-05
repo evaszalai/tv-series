@@ -1,0 +1,29 @@
+{% extends 'base_template.html' %}
+{% block page_title %} List actors with age {% endblock %}
+{% block styling %}
+<script src="{{ url_for('static', filename='js/list-actors.js') }}" defer></script>
+{% endblock %}
+
+{% block main_title %} List actors with age {% endblock %}
+
+{% block content %}
+<div class="card">
+<p>See all actors and their age, starting with the most active ones!</p>
+<p>Hover over the cards – if the actor is still alive, their card turns green, else black.</p>
+<div class="card">
+{% for actor in actors %}
+<div class="small-card" data-alive="{{ actor.alive }}">
+    <div class="name-and-age">{{ actor.name }} ({{ actor.age }})</div>
+    <div class="nr-of-shows">
+        {{ actor.number_of_shows }}
+        {% if actor.number_of_shows < 2 %}
+        show
+        {% else %}
+        shows
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endblock %}
