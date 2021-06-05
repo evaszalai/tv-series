@@ -54,11 +54,15 @@ def search_ajax(search_words):
 
 @app.route('/stars')
 def stars_per_genre():
+    genres = []
+    genres_list = queries.list_all_genres()
+    for item in genres_list:
+        genres.append(item['name'].lower())
     genre = request.args.get('search')
     shows = queries.get_top_by_genre(genre)
     for show in shows:
         show['rating'] = round(show['rating'])
-    return render_template('stars.html', shows=shows)
+    return render_template('stars.html', shows=shows, genres=genres, chosen_genre=genre)
 
 
 @app.route('/shows/most-rated')

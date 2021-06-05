@@ -9,8 +9,16 @@
 {% block content %}
 <div class="card">
     <form action="{{ url_for('stars_per_genre') }}" method="get">
-    <label for="search">Search:</label>
-<input type="text" id="search" name="search">
+        <label for="search">Choose genre (and hover over the results :)</label>
+            <select name="search" id="genre">
+                {% for genre in genres %}
+                    {% if genre == chosen_genre %}
+                    <option value="{{ genre }}" selected="selected">{{ genre }}</option>
+                    {% else %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
     <input type="submit">
     </form>
 </div>
