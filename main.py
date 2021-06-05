@@ -52,6 +52,19 @@ def search_ajax(search_words):
     return queries.search_characters(search_words)
 
 
+@app.route('/stars')
+def stars_per_genre():
+    genres = []
+    genres_list = queries.list_all_genres()
+    for item in genres_list:
+        genres.append(item['name'].lower())
+    genre = request.args.get('search')
+    shows = queries.get_top_by_genre(genre)
+    for show in shows:
+        show['rating'] = round(show['rating'])
+    return render_template('stars.html', shows=shows, genres=genres, chosen_genre=genre)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')

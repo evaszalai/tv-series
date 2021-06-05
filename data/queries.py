@@ -109,3 +109,17 @@ WHERE character_name ILIKE %(words)s
     """
     params = {"words": words}
     return data_manager.execute_select(query, params)
+
+
+def get_top_by_genre(genre):
+    query = """SELECT
+    shows.title, year, rating
+    FROM shows
+    Full Join show_genres sg on shows.id = sg.show_id
+    FULL JOIN genres g on g.id = sg.genre_id
+    WHERE g.name ILIKE %(genre)s
+    ORDER BY rating DESC
+    LIMIT 10
+    """
+    params = {'genre': genre}
+    return data_manager.execute_select(query, params)

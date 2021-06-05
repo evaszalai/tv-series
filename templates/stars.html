@@ -1,0 +1,42 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %} Top shows per genre {% endblock %}
+{% block styling %}
+<script src="{{ url_for('static', filename='js/stars.js') }}" defer></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='style/stars.css') }}">
+{% endblock %}
+{% block main_title %} Top shows per genre {% endblock %}
+{% block content %}
+<div class="card">
+    <form action="{{ url_for('stars_per_genre') }}" method="get">
+        <label for="search">Choose genre (and hover over the results :)</label>
+            <select name="search" id="genre">
+                {% for genre in genres %}
+                    {% if genre == chosen_genre %}
+                    <option value="{{ genre }}" selected="selected">{{ genre }}</option>
+                    {% else %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+    <input type="submit">
+    </form>
+</div>
+
+    {% if shows %}
+    <div class="card">
+    <ol>
+        {% for show in shows %}
+        <li>{{ show.title }} {{ show.year }}
+            {% for i in range(show.rating) %}
+                <i class="fa fa-star gold"></i>
+            {% endfor %}
+            {% for i in range(10 - show.rating) %}
+                <span class="fa fa-star"></span>
+            {% endfor %}
+        </li>
+        {% endfor %}
+    </ol>
+    </div>
+    {% endif %}
+{% endblock %}
