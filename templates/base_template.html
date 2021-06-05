@@ -46,7 +46,7 @@
     </header>
 <div id="options" class="hidden">
     <button type="button"><a href="{{ url_for('show_trailer') }}">Search trailers</a></button>
-    <button type="button">List by genre</button>
+    <button type="button"><a href="{{ url_for('list_by_genre') }}">List by genre</a></button>
 </div>
     <section>
         <nav class="breadcrumb"> {% block breadcrumb %}{% endblock %}

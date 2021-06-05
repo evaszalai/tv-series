@@ -80,3 +80,21 @@ def get_shows_by_search(search_by):
     """
     params = {'search_by': search_by}
     return data_manager.execute_select(query, params)
+
+
+def list_by_genre(genre):
+    query = """SELECT title, COUNT(sc.id) AS characters
+FROM shows
+RIGHT JOIN show_genres sg on shows.id = sg.show_id
+RIGHT JOIN genres g on g.id = sg.genre_id
+FULL JOIN show_characters sc on shows.id = sc.show_id
+WHERE g.name ILIKE %(genre)s
+GROUP BY title
+ORDER BY title
+     """
+    params = {'genre': genre}
+    return data_manager.execute_select(query, params)
+
+
+def list_all_genres():
+    return data_manager.execute_select("SELECT name FROM GENRES")
