@@ -77,10 +77,11 @@ def list_shows():
 
 @app.route('/years')
 def list_years():
+    options = [i for i in range(1970, 2018)]
     start = request.args.get('start')
     end = request.args.get('end')
     years = queries.shows_in_year(start, end)
-    return render_template('list_years', years=years)
+    return render_template('list_years', years=years, options=options)
 
 
 @app.route('/shows/most-rated/<page>/<order_by>/<order>')

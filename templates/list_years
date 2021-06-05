@@ -11,10 +11,21 @@
     <div class="card">
         <form action="/years">
             <label for="start">Choose starting year:</label>
-            <input type="text" id="start" name="start">
-            <label for="end"></label>
-            <input type="text" id="end" name="end">
+            <select name="start" id="start">
+                {% for option in options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            <label for="end">Choose final year:</label>
+            <select name="end" id="end">
+                {% for option in options %}
+                    <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
             <input type="submit" value="Submit">
+            {% if years %}
+                <p>Click on the cards to see average of the selected years!</p>
+            {% endif %}
         </form>
     </div>
 
