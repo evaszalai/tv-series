@@ -85,7 +85,6 @@ def shows_in_year(start, end):
     return data_manager.execute_select(query, params)
 
 
-
 def get_shows_by_search(search_by):
     query = """
     SELECT title, year, ROUND(rating, 1) AS rating, COALESCE(trailer, 'No URL') AS trailer
