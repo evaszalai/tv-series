@@ -26,17 +26,19 @@ def show_trailer():
     return render_template('show_trailer.html', shows=shows)
 
 
-@app.route('/by_genre/<genre>')
-def list_by_genre(genre):
+@app.route('/by_genre')
+def list_by_genre():
     genres = []
     genres_list = queries.list_all_genres()
     for item in genres_list:
         genres.append(item['name'].lower())
-    if genre.lower() not in genres:
-        return "<h1>This genre does not exist.</h1>"
-    else:
+    if request.args.get('search') is not None:
+        genre = request.args.get('search')
         shows = queries.list_by_genre(genre)
-        return render_template('list-by-genre.html', shows=shows)
+    else:
+        shows = None
+        genre = None
+    return render_template('list-by-genre.html', shows=shows, genres=genres, chosengenre=genre)
 
 
 @app.route('/shows/most-rated')

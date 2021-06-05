@@ -3,16 +3,16 @@ const colors = {
         colors.addEventListenersToCards();
     },
     addEventListenersToCards: function () {
-        let cards = document.querySelectorAll('.card');
+        let cards = document.querySelectorAll('.show');
         for (let card of cards) {
-            if (parseInt(card.children[0].innerHTML) % 2 === 1) {
+            if (parseInt(card.children[1].innerHTML) % 2 === 1) {
                 card.addEventListener('dblclick', function (e) {
-                    e.currentTarget.classList.add('green');
+                    e.currentTarget.classList.toggle('green');
                 })
             }
             else {
                 card.addEventListener('dblclick', function (e) {
-                    e.currentTarget.classList.add('blue');
+                    e.currentTarget.classList.toggle('blue');
                 })
             }
         }

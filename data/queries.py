@@ -82,7 +82,6 @@ def get_shows_by_search(search_by):
     return data_manager.execute_select(query, params)
 
 
-
 def list_by_genre(genre):
     query = """SELECT title, COUNT(sc.id) AS characters
 FROM shows
