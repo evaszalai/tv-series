@@ -60,6 +60,7 @@ def stars_per_genre():
         show['rating'] = round(show['rating'])
     return render_template('stars.html', shows=shows)
 
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')

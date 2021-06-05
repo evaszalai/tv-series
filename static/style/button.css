@@ -56,3 +56,14 @@ header input[type="button"]:active {
     background: rgba(150, 150, 150, .25);
     text-shadow: 0 0 4px rgba(255, 255, 255, .5), 0 0 6px rgba(255, 255, 255, .3);
 }
+
+#options {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    position: absolute;
+    z-index: 4;
+    width: 15%;
+    right: 10px;
+    background-color: #4c97ca;
+}

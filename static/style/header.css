@@ -11,16 +11,6 @@ header > * {
     display: none !important;
 }
 
-#options {
-    display: flex;
-    flex-direction: column;
-    float: right;
-    position: absolute;
-    z-index: 4;
-    width: 15%;
-    right: 10px;
-}
-
 #header-logo {
     width: 40px;
     padding: 10px;
