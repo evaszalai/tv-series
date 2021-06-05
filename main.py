@@ -10,8 +10,35 @@ app = Flask('codecool_series')
 
 @app.route('/')
 def index():
-    shows = queries.get_shows()
-    return render_template('index.html', shows=shows)
+    return redirect('/shows/most-rated/1/rating/DESC')
+
+
+@app.route('/show-trailer')
+def show_trailer():
+    if request.args.get('search') is not None:
+        search_by = f"%{request.args.get('search')}%"
+        shows = queries.get_shows_by_search(search_by)
+        for show in shows:
+            if show['trailer'] != 'No URL':
+                show['trailer'] = f"https://www.youtube.com/embed/{convert_to_embed_url(show['trailer'])}"
+    else:
+        shows = None
+    return render_template('show_trailer.html', shows=shows)
+
+
+@app.route('/by_genre')
+def list_by_genre():
+    genres = []
+    genres_list = queries.list_all_genres()
+    for item in genres_list:
+        genres.append(item['name'].lower())
+    if request.args.get('search') is not None:
+        genre = request.args.get('search')
+        shows = queries.list_by_genre(genre)
+    else:
+        shows = None
+        genre = None
+    return render_template('list-by-genre.html', shows=shows, genres=genres, chosengenre=genre)
 
 
 @app.route('/search')
