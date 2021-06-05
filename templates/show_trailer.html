@@ -1,0 +1,46 @@
+{% extends 'base_template.html' %}
+
+{% block page_title %} Search shows {% endblock %}
+{% block styling %}
+<script src="{{ url_for('static', filename='js/trailer.js') }}" defer></script>
+{% endblock %}
+{% block main_title %} Search shows {% endblock %}
+{% block content %}
+
+    <div class="card">
+        <form action="{{ url_for('show_trailer') }}">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search">
+            <input type="submit" value="Submit">
+        </form>
+    {% if shows %}
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Start date</th>
+            <th>Rating</th>
+            <th>Trailer</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for show in shows %}
+            <tr>
+            <td>{{ show.title }}</td>
+            <td>{{ show.year }}</td>
+            <td>{{ show.rating }}</td>
+            {% if show.trailer != 'No URL' %}
+            <td>
+                <button class="trailer" id="{{ show.trailer }}">Watch trailer</button>
+            </td>
+            {% else %}
+            <td> No trailer </td>
+            {% endif %}
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+    {% endif %}
+    </div>
+{% endblock %}

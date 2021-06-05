@@ -39,6 +39,16 @@ a:hover {
     color: rgb(203, 75, 70);
 }
 
+#options a {
+    text-decoration: none;
+    color: white;
+}
+
+#options a:hover,
+#options a:active {
+    color: rgb(203, 75, 70);
+}
+
 .breadcrumb,
 .breadcrumb a {
     font-size: 11px;

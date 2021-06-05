@@ -33,6 +33,7 @@ input[type="button"]:active {
 }
 
 header button,
+#options button,
 header input[type="submit"],
 header input[type="button"] {
     color: #fff;
@@ -43,6 +44,8 @@ header input[type="button"] {
 
 header button:hover,
 header button:active,
+#options button:hover,
+#options button:active,
 header input[type="submit"]:hover,
 header input[type="submit"]:active,
 header input[type="button"]:hover,
@@ -52,4 +55,15 @@ header input[type="button"]:active {
     border: #fff solid 2px;
     background: rgba(150, 150, 150, .25);
     text-shadow: 0 0 4px rgba(255, 255, 255, .5), 0 0 6px rgba(255, 255, 255, .3);
+}
+
+#options {
+    display: flex;
+    flex-direction: column;
+    float: right;
+    position: absolute;
+    z-index: 4;
+    width: 15%;
+    right: 10px;
+    background-color: #4c97ca;
 }

@@ -71,6 +71,75 @@ def get_seasons(show_id):
     return data_manager.execute_select(query)
 
 
+def shows_in_year(start, end):
+    query = """SELECT 
+    TO_CHAR(year, 'yyyy') AS year, 
+    ROUND(AVG(rating), 1) AS rating, 
+    COUNT(id) AS number
+    FROM shows
+    WHERE CAST(TO_CHAR(year, 'yyyy') AS INT) BETWEEN %(start)s AND %(end)s
+    GROUP BY year
+    ORDER BY year 
+    """
+    params = {'start': start, 'end': end}
+    return data_manager.execute_select(query, params)
+
+
+
+def get_shows_by_search(search_by):
+    query = """
+    SELECT title, year, ROUND(rating, 1) AS rating, COALESCE(trailer, 'No URL') AS trailer
+        FROM shows
+        WHERE title ILIKE %(search_by)s
+        ORDER BY title
+    """
+    params = {'search_by': search_by}
+    return data_manager.execute_select(query, params)
+
+
+def list_by_genre(genre):
+    query = """SELECT title, COUNT(sc.id) AS characters
+FROM shows
+RIGHT JOIN show_genres sg on shows.id = sg.show_id
+RIGHT JOIN genres g on g.id = sg.genre_id
+FULL JOIN show_characters sc on shows.id = sc.show_id
+WHERE g.name ILIKE %(genre)s
+GROUP BY title
+ORDER BY title
+     """
+    params = {'genre': genre}
+    return data_manager.execute_select(query, params)
+
+
+def list_all_genres():
+    return data_manager.execute_select("SELECT name FROM GENRES")
+
+
+def search_characters(words):
+    query = """SELECT character_name, s.title AS title, a.name AS name
+FROM show_characters
+LEFT JOIN actors a on a.id = show_characters.actor_id
+LEFT OUTER JOIN shows s on s.id = show_characters.show_id
+WHERE character_name ILIKE %(words)s
+    """
+    params = {"words": words}
+    return data_manager.execute_select(query, params)
+
+
+def get_top_by_genre(genre):
+    query = """SELECT
+    shows.title, year, rating
+    FROM shows
+    Full Join show_genres sg on shows.id = sg.show_id
+    FULL JOIN genres g on g.id = sg.genre_id
+    WHERE g.name ILIKE %(genre)s
+    ORDER BY rating DESC
+    LIMIT 10
+    """
+    params = {'genre': genre}
+    return data_manager.execute_select(query, params)
+
+
 def get_actors_with_age():
     query = """SELECT a.name,
        EXTRACT(YEAR FROM AGE(COALESCE(a.death, current_date), a.birthday)) AS age,
