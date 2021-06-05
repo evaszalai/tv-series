@@ -7,6 +7,10 @@ header > * {
     float: left;
 }
 
+.hidden {
+    display: none !important;
+}
+
 #header-logo {
     width: 40px;
     padding: 10px;

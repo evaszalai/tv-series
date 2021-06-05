@@ -1,0 +1,27 @@
+.small-card {
+    background-color: lightblue;
+    border: slategrey solid 2px;
+    border-radius: 5px;
+    color: black;
+    align-content: center;
+    text-align: center;
+    padding: 15px;
+    margin: 10px;
+}
+
+.year {
+    font-size: 12pt;
+}
+
+.rating {
+    font-size: 20pt;
+    font-weight: 700;
+}
+
+.number {
+    font-size: 8pt;
+}
+
+.selected {
+    background-color: lawngreen !important;
+}
