@@ -1,0 +1,37 @@
+{% extends 'base_template.html' %}
+{% block page_title %} List by genre {% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/color-numbers.js') }}" defer></script>
+{% endblock %}
+{% block main_title %} List shows by genre {% endblock %}
+
+{% block content %}
+    <div class="card">
+        <form action="{{ url_for('list_by_genre') }}">
+            <label for="search">Choose genre:</label>
+            <select name="search" id="genre">
+                {% for genre in genres %}
+                    {% if genre == chosengenre %}
+                    <option value="{{ genre }}" selected="selected">{{ genre }}</option>
+                    {% else %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <input type="submit" value="Submit">
+        {% if shows %}
+            <br>
+           <p> By double clicking the results below, the card of a show with odd number of characters will turn green, otherwise blue.</p>
+        {% endif %}
+        </form>
+    </div>
+    {% if shows %}
+{% for show in shows %}
+    <div class="card show" >
+        {{ show.title }}
+        <div>Number of characters: in the show: </div>
+        <div class="characters">{{ show.characters }}</div>
+    </div>
+{% endfor %}
+    {% endif %}
+{% endblock %}
