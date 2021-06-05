@@ -61,7 +61,10 @@ def stars_per_genre():
     genre = request.args.get('search')
     shows = queries.get_top_by_genre(genre)
     for show in shows:
-        show['rating'] = round(show['rating'])
+        if show['rating'] is not None:
+            show['rating'] = round(show['rating'])
+        else:
+            shows = None
     return render_template('stars.html', shows=shows, genres=genres, chosen_genre=genre)
 
 
