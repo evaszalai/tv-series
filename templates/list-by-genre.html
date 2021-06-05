@@ -27,8 +27,8 @@
     </div>
     {% if shows %}
 {% for show in shows %}
-    <div class="card show" >
-        {{ show.title }}
+    <div class="card show welcome" >
+        <div class="rating card-title">{{ show.title }}</div>
         <div>Number of characters: in the show: </div>
         <div class="characters">{{ show.characters }}</div>
     </div>

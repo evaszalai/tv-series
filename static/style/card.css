@@ -64,3 +64,9 @@
 .blue {
     background-color: lightskyblue;
 }
+
+.card-title {
+    align-content: center;
+    font-weight: bold !important;
+    font-size: 20pt !important;
+}
