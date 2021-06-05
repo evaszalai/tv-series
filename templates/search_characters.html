@@ -1,0 +1,22 @@
+{% extends 'base_template.html' %}
+{% block page_title %}
+Search characters
+{% endblock %}
+{% block styling %}
+    <script src="{{ url_for('static', filename='js/get_characters.js') }}" defer></script>
+{% endblock %}
+{% block main_title %}
+Search characters
+{% endblock %}
+{% block content %}
+<div class="card">
+        <label for="search">Search:</label>
+        <input type="text" name="search" id="search">
+        <input type="submit" value="Submit" id="submit">
+</div>
+    <div class="card hidden" id="characters">
+    <ul id="list">
+
+    </ul>
+    </div>
+{% endblock %}

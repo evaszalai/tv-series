@@ -98,3 +98,14 @@ ORDER BY title
 
 def list_all_genres():
     return data_manager.execute_select("SELECT name FROM GENRES")
+
+
+def search_characters(words):
+    query = """SELECT character_name, s.title AS title, a.name AS name
+FROM show_characters
+LEFT JOIN actors a on a.id = show_characters.actor_id
+LEFT OUTER JOIN shows s on s.id = show_characters.show_id
+WHERE character_name ILIKE %(words)s
+    """
+    params = {"words": words}
+    return data_manager.execute_select(query, params)

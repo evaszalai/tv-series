@@ -41,6 +41,17 @@ def list_by_genre():
     return render_template('list-by-genre.html', shows=shows, genres=genres, chosengenre=genre)
 
 
+@app.route('/search')
+def search_character():
+    return render_template('search_characters.html')
+
+
+@app.route('/search-ajax/<search_words>')
+@json_response
+def search_ajax(search_words):
+    return queries.search_characters(search_words)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')
