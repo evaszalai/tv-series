@@ -11,14 +11,16 @@
 
 <div class="card">
     <p>Here are the 10 most active actors, click on the medals! (They played {{ roles }} characters altogether)</p>
-    <ol type="1">
-        <li>{{ actors[0]['name'] }} <span class="medal">🥇</span></li>
-        <li>{{ actors[1]['name'] }} <span class="medal">🥈</span></li>
-        <li>{{ actors[2]['name'] }} <span class="medal">🥉</span></li>
-        {% for actor in actors[3:] %}
-        <li>{{ actor['name'] }}</li>
-        {% endfor %}
-    </ol>
+    <div class="card">
+        <ol type="1">
+            <li>{{ actors[0]['name'] }} <span class="medal">🥇</span></li>
+            <li>{{ actors[1]['name'] }} <span class="medal">🥈</span></li>
+            <li>{{ actors[2]['name'] }} <span class="medal">🥉</span></li>
+            {% for actor in actors[3:] %}
+                <li>{{ actor['name'] }}</li>
+            {% endfor %}
+        </ol>
+    </div>
 </div>
 
 {% endblock %}
