@@ -20,7 +20,7 @@ const trailer = {
                 section.insertAdjacentHTML('afterbegin', modal);
                 let span = document.getElementsByClassName("close")[0];
                 span.onclick = function() {
-                    let modal = document.getElementsByClassName('modal')[0]
+                    let modal = document.getElementsByClassName('pop-up')[0]
                     modal.style.display = 'none';
                 }
             }
