@@ -1,5 +1,9 @@
 from data_manager import get_connection_data, establish_connection
 import os
+import psycopg2
+
+connection_string = os.environ.get('DATABASE_URL')
+connection = psycopg2.connect(connection_string)
 
 
 def init_db():
