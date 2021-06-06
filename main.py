@@ -77,6 +77,15 @@ def actors():
     return render_template('list_actors_with_age.html', actors=actors_list)
 
 
+@app.route('/top-actors')
+def top_actors():
+    actors = queries.get_busiest_actors()
+    roles = 0
+    for actor in actors:
+        roles += actor['roles']
+    return render_template('top_actors.html', actors=actors, roles=roles)
+
+
 @app.route('/shows/most-rated')
 def index_most_rated():
     return redirect('/shows/most-rated/1/rating/DESC')

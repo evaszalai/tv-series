@@ -71,6 +71,17 @@ def get_seasons(show_id):
     return data_manager.execute_select(query)
 
 
+def get_busiest_actors():
+    query = """SELECT
+    actors.id, name, COUNT(DISTINCT sc.id) AS roles
+    FROM actors
+    LEFT JOIN show_characters sc on actors.id = sc.actor_id
+    GROUP BY actors.id, name
+    ORDER BY roles DESC
+    LIMIT 10"""
+    return data_manager.execute_select(query)
+
+
 def shows_in_year(start, end):
     query = """SELECT 
     TO_CHAR(year, 'yyyy') AS year, 

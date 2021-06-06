@@ -1,0 +1,26 @@
+{%  extends 'base_template.html' %}
+
+{% block page_title %} Top actors {% endblock %}
+{% block styling %}
+<script src="{{ url_for('static', filename='js/top-actors.js') }}" defer></script>
+{% endblock %}
+
+{% block main_title %} Top 10 Actors {% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <p>Here are the 10 most active actors, click on the medals! (They played {{ roles }} characters altogether)</p>
+    <div class="card">
+        <ol type="1">
+            <li>{{ actors[0]['name'] }} <span class="medal">🥇</span></li>
+            <li>{{ actors[1]['name'] }} <span class="medal">🥈</span></li>
+            <li>{{ actors[2]['name'] }} <span class="medal">🥉</span></li>
+            {% for actor in actors[3:] %}
+                <li>{{ actor['name'] }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+</div>
+
+{% endblock %}
